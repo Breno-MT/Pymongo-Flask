@@ -1,18 +1,25 @@
+import os
 from dotenv import load_dotenv, find_dotenv
 
 load_dotenv(find_dotenv())
 
 class Development(object):
-    DEBUG = True
     TESTING = False
+    FLASK_DEBUG = os.getenv("FLASK_DEBUG")
+    SECRET_KEY = os.getenv("SECRET_KEY")
+    MONGO_URI = os.getenv("MONGO_URI")
 
 class Testing(object):
-    DEBUG = False
     TESTING = True
+    FLASK_DEBUG = os.getenv("FLASK_DEBUG")
+    SECRET_KEY = os.getenv("SECRET_KEY")
+    MONGO_URI = os.getenv("MONGO_URI")
 
 class Production(object):
-    DEBUG = False
     TESTING = False
+    FLASK_DEBUG = os.getenv("FLASK_DEBUG")
+    SECRET_KEY = os.getenv("SECRET_KEY")
+    MONGO_URI = os.getenv("MONGO_URI")
 
 app_config = {
     "development": Development,
