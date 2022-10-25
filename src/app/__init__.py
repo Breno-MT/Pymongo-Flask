@@ -1,16 +1,14 @@
 import os
 from flask import Flask
-from flask_pymongo import PyMongo
 from flask_cors import CORS
 from src.app.config import app_config
+from src.app.utils import mongo
 
-DB = PyMongo(uri=os.getenv("MONGO_URI"))
+app = Flask(__name__)
+app.config.from_object(app_config[os.getenv("FLASK_ENV")])
+mongo.init_app(app)
+mongo_client = mongo.db
 
-def create_app(enviroment):
-    app = Flask(__name__)
-    app.config.from_object(app_config[enviroment])
-    DB.init_app(app)
-    CORS(app)
+CORS(app)
 
-    return app
 
