@@ -10,10 +10,16 @@ movies = Blueprint("movies", __name__, url_prefix="/movies")
 @movies.route("/", methods=["GET"])
 def list_all_movies():
     
-    collection_names = mongo_client.list_collection_names()
+    movies = mongo_client.movies.aggregate([
+        {
+            "$match": {
+                "type": "Movie"
+            }
+        }
+    ])
 
     return Response(
-        response=json.dumps(collection_names),
+        response=json_util.dumps({"records": movies}),
         status=200,
         mimetype="application/json"
     )
