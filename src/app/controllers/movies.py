@@ -2,6 +2,7 @@ import json
 from bson import ObjectId, json_util
 from flask import Blueprint, request
 from flask.wrappers import Response
+from pymongo.errors import WriteError
 from src.app import mongo_client
 
 
@@ -27,15 +28,25 @@ def list_all_movies():
 @movies.route("/add_movie", methods=["POST"])
 def add_a_new_movie():
 
-    new_movie = request.get_json()
+    try:
+        new_movie = request.get_json()
 
-    mongo_client.movies.insert_one(new_movie)
+        mongo_client.movies.insert_one(new_movie)
 
-    return Response(
-        response=json_util.dumps({"records": new_movie}),
-        status=201,
-        mimetype="application/json"
-    )
+        return Response(
+            response=json_util.dumps({"records": new_movie}),
+            status=201,
+            mimetype="application/json"
+        )
+
+    except Exception as _:
+        
+        return Response(
+            response=json.dumps({"error": "Something happened! Check your json body!"}),
+            status=403,
+            mimetype="application/json"
+        )
+
 
 @movies.route("/update_movie/<string:id>", methods=["PATCH"])
 def update_a_movie(id):
