@@ -2,6 +2,7 @@ def create_collection_movies(mongo_client):
     movies_validator = {
         "$jsonSchema": {
             "bsonType": "object",
+            "required": ["type", "title", "release_year", "description", "cast"],
             "properties": {
                 "type": {
                     "bsonType": "string",
