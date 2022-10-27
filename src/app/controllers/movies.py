@@ -13,9 +13,29 @@ def list_all_movies():
     
     movies = mongo_client.movies.aggregate([
         {
-            "$match": {
-                "type": "Movie"
+            "$lookup": {
+                "from": "comments", 
+                "localField": "_id", 
+                "foreignField": "movie_id", 
+                "as": "comments"
             }
+        }, 
+        {
+            "$match": {
+                "comments": {
+                    "$ne": []
+                }
+            }
+        }, 
+        {
+            "$project": {
+                "count": {
+                    "$size": "$comments"
+                }
+            }
+        },
+        {
+            "$limit": 10
         }
     ])
 
