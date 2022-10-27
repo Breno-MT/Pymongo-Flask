@@ -35,6 +35,6 @@ def create_collection_comments(mongo_client):
     try:
         mongo_client.create_collection("comments")
     except Exception as e:
-        print(e)
+        print(f"Something went wrong! {e}")
 
     mongo_client.command("collMod", "comments", validator=comments_validator)
