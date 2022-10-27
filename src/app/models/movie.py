@@ -1,41 +1,33 @@
 def create_collection_movies(mongo_client):
     movies_validator = {
-        "$jsonSchema": {
-            "bsonType": "object",
-            "required": ["type", "title", "release_year", "description", "cast"],
-            "properties": {
-                "type": {
-                    "bsonType": "string",
-                    "description": "If its either a Movie or TV Show",
-                    "enum": ["Movie", "TV Show"]
-                },
-                "title": {
-                    "bsonType": "string",
-                    "description": "Movies or TV Shows title"
-                },
-                "release_year": {
-                    "bsonType": "int",
-                    "description": "Movies or TV Shows release year"
-                },
-                "description": {
-                    "bsonType": "string",
-                    "description": "Description of the Movies or TV Shows"
-                },
-                "cast": {
-                    "bsonType": "array",
-                    "description": "Movie cast",
-                    "items": {
-                        "bsonType": "string",
-                        "description": "Person from the Movie or TV Show"
-                    }
-                }
-            }
+    "$jsonSchema": {
+        "bsonType": "object",
+        "required": [ 
+            "_id",
+            "plot",
+            "genres",
+            "runtime",
+            "cast",
+            "num_mflix_comments",
+            "title",
+            "fullplot",
+            "countries",
+            "released",
+            "directors",
+            "rated",
+            "awards",
+            "lastupdated",
+            "year",
+            "imdb",
+            "type",
+            "tomatoes"
+        ],
         }
     }
 
     try:
         mongo_client.create_collection("movies")
-        print("Database created successfully!")
+        print("Collection Movies created successfully!")
     
     except Exception as e:
         print(f"Something went wrong! {e}")
