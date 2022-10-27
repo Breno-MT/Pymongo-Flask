@@ -34,6 +34,7 @@ def create_collection_comments(mongo_client):
 
     try:
         mongo_client.create_collection("comments")
+        print("Collection Comments created successfully!")
     except Exception as e:
         print(f"Something went wrong! {e}")
 
