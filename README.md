@@ -17,6 +17,10 @@
 python -m venv venv_name
 source venv_name/bin/activate - Linux
 venv_name/Scripts/activate.bat - Windows
+
+Now install the requirements.txt
+pip install -r requirements.txt
+
 ```
 ## After that just run:
 ```
