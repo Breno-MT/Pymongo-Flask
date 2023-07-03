@@ -21,8 +21,15 @@ class Production(object):
     SECRET_KEY = os.getenv("SECRET_KEY")
     MONGO_URI = os.getenv("MONGO_URI")
 
+class Holomogation(object):
+    TESTING = False
+    FLASK_DEBUG = os.getenv("FLASK_DEBUG")
+    SECRET_KEY = os.getenv("SECRET_KEY")
+    MONGO_URI = os.getenv("MONGO_URI")
+
 app_config = {
     "development": Development,
     "testing": Testing,
-    "production": Production
+    "production": Production,
+    "homologation": Holomogation
 }
