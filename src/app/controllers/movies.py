@@ -19,20 +19,6 @@ def list_all_movies():
                 "foreignField": "movie_id", 
                 "as": "comments"
             }
-        }, 
-        {
-            "$match": {
-                "comments": {
-                    "$ne": []
-                }
-            }
-        }, 
-        {
-            "$project": {
-                "count": {
-                    "$size": "$comments"
-                }
-            }
         },
         {
             "$limit": 10
@@ -45,7 +31,7 @@ def list_all_movies():
         mimetype="application/json"
     )
 
-@movies.route("/add_movie", methods=["POST"])
+@movies.route("/add", methods=["POST"])
 def add_a_new_movie():
 
     try:
@@ -68,7 +54,7 @@ def add_a_new_movie():
         )
 
 
-@movies.route("/update_movie/<string:id>", methods=["PATCH"])
+@movies.route("/update/<string:id>", methods=["PATCH"])
 def update_a_movie(id):
 
     update_movie = request.get_json()
@@ -83,7 +69,7 @@ def update_a_movie(id):
         mimetype="application/json"
     )
 
-@movies.route("/delete_movie/<string:id>", methods=["DELETE"])
+@movies.route("/delete/<string:id>", methods=["DELETE"])
 def delete_a_movie(id):
 
     object_id = ObjectId(id)
